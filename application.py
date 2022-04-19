@@ -91,6 +91,47 @@ class Application():
             dict[listOfSensors[index][0][0]] = listOfSensors[index][1]
         
         self.setDict(dict)
+    
+    def findPath(self):
+        l =[]
+        sor = input("Enter the source sensor: ")
+        while True:
+            if(sor.isupper) and (sor in self.dict):
+                self._path.append(sor)
+                break
+            else:
+                print("Invalid Sensor Entered!")
+                sor = input("Renter the source sensor:")
+                continue
+        des = input(print("Enter the destination sensor: "))
+        while True:
+            if (des.isupper) and (des in self._dict):
+                if des in self._path:
+                    print("Path = ",self._path)
+                break
+            else:
+                print("Invalid Sensor Entered!")
+                des = input("Renter the destination sensor:")
+                continue
+        
+        for index in self._dict[sor]:
+            l.append(index[1])
+            m = max(l)
+        for index in self._dict[sor]:    
+            if index[0] == str(des):
+                self._path.append(index[0])
+                break
+            elif (index[1] == m) and (index[0] not in self._path):
+                self._path.append(index[0])
+                self.findPath(str(index[0]),des,self._path)
+            elif (index[1] == m) and (index[0] in self._path):
+                l.remove(index[1])
+                if l==[]:
+                    print("The destination is not found")
+                else:
+                    m = max(l)
+    def setNoOfSensors(self,noOfSensors):
+        self._noSensors = noOfSensors
 
     def setNoOfSensors(self,noOfSensors):
         self._noSensors = noOfSensors
