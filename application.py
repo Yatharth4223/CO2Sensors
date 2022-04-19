@@ -83,6 +83,15 @@ class Application():
             self.setListOfSensors(listOfSensors)
         print(listOfSensors)
 
+    def convrtToDictionary(self):
+        self._dict = {}
+        listOfSensors = self._listOfSensors
+        self.setListOfSensors(listOfSensors)
+        for index in range(len(listOfSensors)):
+            dict[listOfSensors[index][0][0]] = listOfSensors[index][1]
+        
+        self.setDict(dict)
+
     def setNoOfSensors(self,noOfSensors):
         self._noSensors = noOfSensors
 
@@ -124,6 +133,14 @@ class Application():
 
     def getListOfSensors(self):
         return self._listOfSensors    
-   
+    
+    def setDict(self,dict):
+        self._dict =dict
+
+    def getDict(self):
+        return self._dict
+
+WirelessNetwork.greetingMessage()
+WirelessNetwork.brand()
 ob =Application()
 ob.createSensors() 
