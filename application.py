@@ -11,29 +11,78 @@ class Application():
     def createSensors(self,listOfSensors =[]):
         noOfSensors = input("Enter the number of sensors: ")
         self.setNoOfSensors(noOfSensors)
+        #The loop checks if noOfSensors is int or not
+        while(noOfSensors.isnumeric() == False):
+            print("This is an invalid entry for the number of sensors!")
+            noOfSensors =input("Re - enter the number of sensors: ")  
         for index in range(int(noOfSensors)):
             id = input("Enter the sensors id: ")
             self.setId(id)
-            
+            while(id.isnumeric() == True):
+                print("This is an invalid entry for sensor Id! ")
+                print("_*__*__*__*__*__*__*__*__*__*_ ")
+                id = input(print("Enter the Sensor Id: "))
+                self.setId(id)
+                
+            #This is when id =A!
+            while(('!' in id) == True):    
+                print("This is an invalid entry for sensor Id! ")
+                print("_*__*__*__*__*__*__*__*__*__*_ ")         
+                id = input(print("Enter the Sensor Id: "))
             listOfSensors += [[id]]
             noOfNeighbours =input("Enter the number of neighbours: ")
             self.setNoOfNeighbours(noOfNeighbours)
+            while(noOfNeighbours.isnumeric() == False):
+                try:
+                    nNeigh = None
+                    nNeigh =int(noOfNeighbours)
+                    
+                except Exception:
+                    print("This is an invalid entry for the number of neighbours! ")  
+                    noOfNeighbours =input("Enter the number of Neighbours: ")  
+                    self.setNoOfNeighbours(noOfNeighbours)
             
             #This snippet creates number of neighbours with ids and distance from first Sensor id 
-            for index in range(int(noOfNeighbours)):
-                neighId = input(print("Enter the neighbour for Sensor ",id,": "))
-                self.setNeighId(neighId)
-                dist =input(print("Enter the distance to ",neighId,": "))
-                listOfSensors += [[neighId,int(dist)]]
+            if(noOfNeighbours !=0):
+                for index in range(int(noOfNeighbours)):
+                    neighId = input(print("Enter the neighbour for Sensor ",id,": "))
+                    self.setNeighId(neighId)
+                    while(neighId.isnumeric() ==True):
+                        print("This is an invalid entry for the neighbour’s name and/or distance! ")
+                        neighId = input(print("Enter the neighbour Id for Sensor ",id,": "))
+                        self.setNeighId(neighId)
+                    while(('!' in neighId) == True):    
+                        print("This is an invalid entry for the neighbour’s name and/or distance! ")
+                        neighId = input(print("Enter the neighbour for Sensor ",id,": "))      
+                        self.setNeighId(neighId)
+                    dist =input(print("Enter the distance to ",neighId,": "))
+                    while(dist.isnumeric() ==False):
+                        print("This is an invalid entry for the neighbour’s name and/or distance! ")
+                        dist = input("Enter the distance to ",neighId,": ")
+                    listOfSensors += [[neighId,int(dist)]]
             oxlevel = input("Enter the Oxygen level in %: ")
+            while(oxlevel.isnumeric() ==False):
+                print("This is an invalid entry for the oxygen level! ")
+                oxlevel = input("Enter the Oxygen level in %: ")
+                self.setOxLevel(oxlevel)
             temp =input("Enter the temperature measurement: ")
             self.setTemprature(temp)
+            res = False
+            while(res == False):
+                try:
+                    float(temp)
+                    res =True
+                except :
+                    print("This is an invalid entry for the temperature! ")
+                    temp =input("Enter the temperature measurement: ")
+                    self.setTemprature(temp)
+                    res =False
             print("_*__*__*__*__*__*__*__*__*__*_ ")        
             listOfSensors += [[oxlevel,temp]]
             self.setTemprature(temp)
             self.setListOfSensors(listOfSensors)
         print(listOfSensors)
-            
+
     def setNoOfSensors(self,noOfSensors):
         self._noSensors = noOfSensors
 
